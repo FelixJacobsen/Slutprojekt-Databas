@@ -13,8 +13,6 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long StudentId;
 
-    @OneToMany
-    private List<Course> course;
 
     @ManyToOne
     private Education education;
@@ -24,11 +22,41 @@ public class Student {
 
 
     public Student() {
+
+    }
+
+    public Student(Education education, int age, String fullName) {
+        this.education = education;
+        this.age = age;
+        this.fullName = fullName;
+    }
+
+    public long getStudentId() {
+        return StudentId;
     }
 
 
+    public Education getEducation() {
+        return education;
+    }
 
+    public void setEducation(Education education) {
+        this.education = education;
+    }
 
+    public int getAge() {
+        return age;
+    }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 }

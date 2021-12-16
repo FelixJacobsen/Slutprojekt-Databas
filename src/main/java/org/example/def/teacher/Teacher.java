@@ -3,6 +3,8 @@ package org.example.def.teacher;
 import org.example.def.course.Course;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Teacher {
@@ -10,14 +12,15 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long teacherID;
 
-    @ManyToOne
-    private Course course;
+    @ManyToMany(targetEntity = Course.class)
+    private List<Course> courseList;
 
     private String fullName;
     private int age;
 
-    public Teacher(Course course, String fullName, int age) {
-        this.course = course;
+    public Teacher(List<Course> courseList, String fullName, int age) {
+        courseList = new ArrayList<>();
+        this.courseList = courseList;
         this.fullName = fullName;
         this.age = age;
     }
@@ -26,18 +29,20 @@ public class Teacher {
 
     }
 
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void addCourse(Course course) {
+        courseList.add(course);
+       course.getTeacherList().add(this);
+    }
+
+
     public long getTeacherID() {
         return teacherID;
     }
 
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
 
     public String getFullName() {
         return fullName;

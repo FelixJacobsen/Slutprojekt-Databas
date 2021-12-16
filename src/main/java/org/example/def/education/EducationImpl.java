@@ -5,6 +5,7 @@ import org.example.def.course.Course;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class EducationImpl implements EducationDao{
@@ -44,22 +45,28 @@ public class EducationImpl implements EducationDao{
     }
 
     @Override
-    public List<Education> getEducationName(String name) {
-        return null;
+    public List<Education> getEducationName(String educationName) {
+        TypedQuery<Education> queryName = em.createQuery("SELECT n FROM Education n WHERE n.educationName =: fullName",Education.class);
+        queryName.setParameter("educationName",educationName);
+        return queryName.getResultList();
     }
 
     @Override
-    public List<Education> getEducationId(long Id) {
-        return null;
+    public List<Education> getEducationId(long educationID) {
+        TypedQuery<Education> queryID = em.createQuery("SELECT i FROM Education i WHERE i.educationID =: Id",Education.class);
+        queryID.setParameter("educationID",educationID);
+        return queryID.getResultList();
     }
 
     @Override
     public List<Education> getByParticipants(int participants) {
-        return null;
+        TypedQuery<Education> participantsAmount = em.createQuery("SELECT p FROM Education p ORDER BY p.participants DESC",Education.class);
+        return participantsAmount.getResultList();
     }
 
     @Override
     public List<Education> getCourses(Course course) {
-        return null;
+        TypedQuery<Education> queryCourses = em.createQuery("SELECT courseList FROM Education",Education.class);
+        return queryCourses.getResultList();
     }
 }
