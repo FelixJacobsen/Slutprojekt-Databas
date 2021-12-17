@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.def.course.CourseImpl;
+import org.example.def.education.Education;
 import org.example.def.education.EducationImpl;
 import org.example.def.student.Student;
 import org.example.def.teacher.TeacherImpl;
@@ -33,29 +34,152 @@ public class Menu {
         while(flag){
             printer();
             choice = scanner.nextLine();
-            switch (choice){
-                case "1":
-                    educationMenuPrinter();
-                    educationMenuOptions();
-                    break;
-                case "2":
-                    courseMenuPrinter();
-                    break;
-                case "3":
-                    studentMenuPrinter();
-                    break;
-                case "0":
+            switch (choice) {
+                case "1" -> educationMenuOptions();
+                case "2" -> courseMenuOptions();
+                case "3" -> studentMenuOptions();
+                case "0" -> {
                     System.out.println("Exiting program...");
                     flag = false;
+                }
+            }
+        }
+    }
+
+    private void studentMenuOptions() {
+        boolean flag = true;
+        String choice;
+        while(flag){
+            studentMenuPrinter();
+            choice = scanner.nextLine();
+            switch (choice){
+                case "0":
+                    System.out.println("Exiting education menu");
+                    flag = false;
+                    break;
+                case "1":
+                    addStudent();
+                    break;
+
+                case "2":
+                    updateStudent();
+                    break;
+
+                case "3":
+                    showStudent();
+                    break;
+
+                case "4":
+                    course.getAll().forEach(System.out::println);
+                    break;
+
+                case "5":
+                    removeStudent();
                     break;
             }
         }
     }
 
+    private void courseMenuOptions() {
+        boolean flag = true;
+        String choice;
+        while(flag){
+            courseMenuPrinter();
+            choice = scanner.nextLine();
+            switch (choice){
+                case "0":
+                    System.out.println("Exiting education menu");
+                    flag = false;
+                    break;
+                case "1":
+                    addCourse();
+                    break;
+
+                case "2":
+                    updateCourse();
+                    break;
+
+                case "3":
+                    showCourse();
+                    break;
+
+                case "4":
+                    course.getAll().forEach(System.out::println);
+                    break;
+
+                case "5":
+                    removeCourse();
+                    break;
+            }
+        }
+    }
+
+
+
+
     private void educationMenuOptions() {
+        boolean flag = true;
+        String choice;
+        while(flag){
+            educationMenuPrinter();
+            choice = scanner.nextLine();
+            switch (choice){
+                case "0":
+                    System.out.println("Exiting education menu");
+                    flag = false;
+                    break;
+
+                case "1":
+                    addEduction();
+                    break;
+
+                case "2":
+                    updateEducation();
+                    break;
+
+                case "3":
+                    showInformation();
+                    break;
+
+                case "4":
+                    education.getAll().forEach(System.out::println);
+                    break;
+
+                case "5":
+                    removeEducation();
+                    break;
+            }
+        }
 
 
     }
+
+    private void removeEducation() {
+
+    }
+
+    private void showInformation() {
+    }
+
+    private void updateEducation() {
+    }
+
+    private void addEduction() {
+        System.out.println("Enter education name: ");
+        String educationName = scanner.nextLine();
+        System.out.println("Enter number of participants ");
+        int number = Integer.parseInt(scanner.nextLine());
+        education.insert(new Education(,educationName,number));
+
+    }
+
+
+
+
+
+
+
+
 
 
     public void educationMenuPrinter(){
