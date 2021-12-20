@@ -59,7 +59,7 @@ public class EducationImpl implements EducationDao{
     }
 
     @Override
-    public List<Education> getEducationId(long educationID) {
+    public List<Education> getEducationId(int educationID) {
         TypedQuery<Education> queryID = em.createQuery("SELECT i FROM Education i WHERE i.educationID = :Id",Education.class);
         queryID.setParameter("Id",educationID);
         return queryID.getResultList();

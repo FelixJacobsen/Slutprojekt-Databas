@@ -20,15 +20,12 @@ public class Course {
     @ManyToOne
     private Education education;
 
-
     public Course(String courseName, String courseLanguage, Date startDate, Date endDate) {
         this.courseName = courseName;
         this.courseLanguage = courseLanguage;
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
-
 
     private String courseName;
     private String courseLanguage;
@@ -38,7 +35,6 @@ public class Course {
     public Course() {
 
     }
-
 
     public Education getEducation() {
         return education;
@@ -56,7 +52,6 @@ public class Course {
 
     public void addTeacher(Teacher teacher){
         teacherList.add(teacher);
-        teacher.getCourseList().add(this);
     }
 
 

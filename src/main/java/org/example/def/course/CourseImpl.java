@@ -1,6 +1,5 @@
 package org.example.def.course;
 
-import org.example.def.student.Student;
 import org.example.def.teacher.Teacher;
 
 import javax.persistence.EntityManager;
@@ -50,24 +49,23 @@ public class CourseImpl implements CourseDao {
         return em.find(Course.class,id);
     }
 
-
     @Override
     public List<Course> getByName(String name) {
-        TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c WHERE fullName =:name ", Course.class);
+        TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c WHERE courseName =:name ", Course.class);
         query.setParameter("name", name);
         return query.getResultList();
     }
 
-
-    @Override
-    public List<Course> getByTeacher(Teacher teacher) {
-        return teacher.getCourseList();
-    }
-
-
     @Override
     public List<Course> orderByLength() {
         TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c ORDER BY startDate DESC", Course.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Course> getByTeacher(Teacher teacher) {
+        TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c WHERE teacherList = :teacher", Course.class);
+        query.setParameter("teacher",teacher);
         return query.getResultList();
     }
 }

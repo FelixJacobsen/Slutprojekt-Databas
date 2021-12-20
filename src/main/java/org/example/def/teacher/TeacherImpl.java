@@ -25,7 +25,6 @@ public class TeacherImpl implements TeacherDao {
     @Override
     public void delete(Teacher teacher) {
         em.getTransaction().begin();
-        teacher.getCourseList().forEach(course -> course.getTeacherList().remove(teacher));
         em.remove(teacher);
         em.getTransaction().commit();
     }

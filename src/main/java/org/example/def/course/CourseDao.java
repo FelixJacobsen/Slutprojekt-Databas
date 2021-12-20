@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CourseDao extends Dao<Course> {
      List<Course> getByName(String name);
-     List<Course> getByTeacher(Teacher teacher);
      List<Course> orderByLength();
+     List<Course> getByTeacher(Teacher teacher);
 
 }

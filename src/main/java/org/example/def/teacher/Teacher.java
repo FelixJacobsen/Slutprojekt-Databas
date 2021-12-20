@@ -12,30 +12,17 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int teacherID;
 
-    @ManyToMany(targetEntity = Course.class)
-    private List<Course> courseList;
 
     private String fullName;
     private int age;
 
     public Teacher(String fullName, int age) {
-        courseList = new ArrayList<>();
         this.fullName = fullName;
         this.age = age;
     }
 
     public Teacher() {
 
-    }
-
-    public List<Course> getCourseList() {
-        return courseList;
-    }
-
-
-    public void addCourse(Course course) {
-        courseList.add(course);
-       course.getTeacherList().add(this);
     }
 
 
@@ -58,5 +45,14 @@ public class Teacher {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "teacherID=" + teacherID +
+                ", fullName='" + fullName + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

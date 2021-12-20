@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EducationDao extends Dao<Education> {
     List<Education> getEducationName(String name);
-    List<Education> getEducationId(long Id);
+    List<Education> getEducationId(int Id);
     List<Education> getByParticipants(int participants);
     List<Education> getCourses(Course course);
 }

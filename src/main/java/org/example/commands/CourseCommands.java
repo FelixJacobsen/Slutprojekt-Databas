@@ -10,6 +10,7 @@ import org.example.def.teacher.TeacherDao;
 import org.example.def.teacher.TeacherImpl;
 
 import java.sql.Date;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class CourseCommands {
@@ -58,25 +59,35 @@ public class CourseCommands {
             Date dateDate = Date.valueOf(end);
 
             Course course = new Course(courseName,courseLanguage,startDate,dateDate);
-
-            System.out.println("Enter education ID");
-            int educationID = Integer.parseInt(scanner.nextLine());
-
-            Education education1 = educationDao.getById(educationID);
-            education1.addCourse(course);
-            educationDao.update(education1);
-
-
-            System.out.println("Enter the teachers ID for this course: ");
-
-            int teacherId = Integer.parseInt(scanner.nextLine());
-
-            Teacher teacher1 = teacherDao.getById(teacherId);
-            course.addTeacher(teacher1);
-            teacherDao.update(teacher1);
-
-
             courseDao.insert(course);
+
+
+
+            System.out.println("Do you want to add a education to the course? [y/n] ");
+            if(scanner.nextLine().equalsIgnoreCase("y")){
+
+                System.out.println("Enter education ID");
+                int educationID = Integer.parseInt(scanner.nextLine());
+
+                Education education1 = educationDao.getById(educationID);
+                course.setEducation(education1);
+                courseDao.update(course);
+            }
+
+
+            System.out.println("Would you like to add a teacher to this course? [y/n]");
+            if(scanner.nextLine().equalsIgnoreCase("y")){
+                System.out.println("Enter the teachers ID for this course: ");
+
+                int teacherId = Integer.parseInt(scanner.nextLine());
+
+                Teacher teacher1 = teacherDao.getById(teacherId);
+                course.addTeacher(teacher1);
+                teacherDao.update(teacher1);
+            }
+
+
+
             System.out.println("Would you like to add a new course [y/n]");
             String userInput = scanner.nextLine();
 
@@ -156,7 +167,7 @@ public class CourseCommands {
                     int teacherID = Integer.parseInt(scanner.nextLine());
                     Teacher teacher = teacherDao.getById(teacherID);
                     System.out.println("Teachers found");
-                    courseDao.getByTeacher(teacher).forEach(System.out::println);
+
 
 
 
@@ -171,7 +182,6 @@ public class CourseCommands {
         int inputID = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Updating:" + courseDao.getById(inputID));
-
 
 
     }

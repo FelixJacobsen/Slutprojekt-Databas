@@ -1,13 +1,11 @@
 package org.example.def.student;
-
-import org.example.def.course.Course;
 import org.example.def.education.Education;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
+
 
 public class StudentImpl implements StudentDao {
     EntityManagerFactory emf;
@@ -17,7 +15,6 @@ public class StudentImpl implements StudentDao {
         this.emf = Persistence.createEntityManagerFactory("Slutprojekt");
         this.em = emf.createEntityManager();
     }
-
 
     @Override
     public void insert(Student student) {
@@ -29,7 +26,6 @@ public class StudentImpl implements StudentDao {
     @Override
     public void delete(Student student) {
         em.getTransaction().begin();
-        student.getEducation().getStudentList().remove(student);
         em.remove(student);
         em.getTransaction().commit();
     }
@@ -59,15 +55,18 @@ public class StudentImpl implements StudentDao {
     }
 
     @Override
-    public List<Student> getByEducation(Education education) {
-        return education.getStudentList();
-    }
-
-    @Override
     public List<Student> getByAge(int age) {
         TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s WHERE age =:age", Student.class);
         query.setParameter("age", age);
         return query.getResultList();
+    }
+
+    @Override
+    public List<Student> getByEducation(Education education) {
+            TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s WHERE education = :education",Student.class);
+            query.setParameter("education",education);
+            return query.getResultList();
+
     }
 
 
