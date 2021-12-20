@@ -22,7 +22,7 @@ public class StudentImpl implements StudentDao {
     @Override
     public void insert(Student student) {
         em.getTransaction().begin();
-        em.remove(student);
+        em.persist(student);
         em.getTransaction().commit();
     }
 
