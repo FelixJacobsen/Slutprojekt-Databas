@@ -28,14 +28,14 @@ public class EducationImpl implements EducationDao{
     @Override
     public void delete(Education education) {
         em.getTransaction().begin();
-        em.persist(education);
+        em.remove(education);
         em.getTransaction().commit();
     }
 
     @Override
     public void update(Education education) {
         em.getTransaction().begin();
-        em.persist(education);
+        em.merge(education);
         em.getTransaction().commit();
     }
 

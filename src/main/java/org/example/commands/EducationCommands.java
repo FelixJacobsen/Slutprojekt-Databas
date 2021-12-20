@@ -1,17 +1,13 @@
 package org.example.commands;
 
-import net.bytebuddy.implementation.InvokeDynamic;
 import org.example.def.course.Course;
 import org.example.def.course.CourseImpl;
 import org.example.def.education.Education;
 import org.example.def.education.EducationImpl;
 import org.example.def.student.Student;
-import org.example.def.student.StudentDao;
 import org.example.def.student.StudentImpl;
-import org.example.def.teacher.Teacher;
 import org.example.def.teacher.TeacherImpl;
 
-import java.sql.Date;
 import java.util.Scanner;
 
 public class EducationCommands {
@@ -27,7 +23,7 @@ public class EducationCommands {
     public void educationMenuOptions() {
         boolean flag = true;
         String choice;
-        while(flag){
+        while (flag) {
             educationMenuPrinter();
             choice = scanner.nextLine();
             switch (choice) {
@@ -38,7 +34,7 @@ public class EducationCommands {
                 case "1" -> addEduction();
                 case "2" -> updateEducation();
                 case "3" -> showInformation();
-                case "4" -> showAllCourses();
+                case "4" -> showAllEducations();
                 case "5" -> removeEducation();
             }
         }
@@ -65,19 +61,19 @@ public class EducationCommands {
 
         boolean flag = true;
 
-        do{
+        do {
             System.out.println("""
-                    Enter what you would like to filter on
-                    1. ID
-                    2. Name
-                    3. Participants
-                    4. Courses
-                    0. Return
-                   
-                  """);
+                      Enter what you would like to filter on
+                      1. ID
+                      2. Name
+                      3. Participants
+                      4. Courses
+                      0. Return
+                     
+                    """);
 
             String choice = scanner.nextLine();
-            switch (choice){
+            switch (choice) {
                 case "0":
                     flag = false;
                     break;
@@ -108,14 +104,14 @@ public class EducationCommands {
                     Course course = courseDao.getById(courseID);
 
                     boolean flag2 = true;
-                    while(flag2){
+                    while (flag2) {
                         System.out.println("""
-                               [0] Return
-                               [1] Add course
-                               [2] Delete course 
-                               """);
+                                [0] Return
+                                [1] Add course
+                                [2] Delete course 
+                                """);
                         String choice2 = scanner.nextLine();
-                        switch(choice2){
+                        switch (choice2) {
                             case "0":
                                 flag2 = false;
                                 break;
@@ -126,26 +122,20 @@ public class EducationCommands {
                             case "2":
 
 
-
-
-
-
                         }
                     }
 
 
-
             }
 
-        }while(flag);
-
+        } while (flag);
 
 
     }
 
-    private void showAllCourses() {
-        System.out.println("=====        List of all current courses            =====");
-        courseDao.getAll().forEach(System.out::println);
+    private void showAllEducations() {
+        System.out.println("=====        List of all current educations           =====");
+        educationDao.getAll().forEach(System.out::println);
     }
 
     private void updateEducation() {
@@ -158,9 +148,9 @@ public class EducationCommands {
     }
 
     private void addEduction() {
-    boolean redo = true;
 
-        do{
+
+
             System.out.println("Enter education name: ");
             String educationName = scanner.nextLine();
 
@@ -168,44 +158,45 @@ public class EducationCommands {
             int participants = Integer.parseInt(scanner.nextLine());
 
 
+            Education education = new Education(educationName, participants);
 
-            Education education = new Education(educationName,participants);
+            System.out.println("Would you like to add a course to the education");
+            String addCourse = scanner.nextLine();
+            if (addCourse.equalsIgnoreCase("y")) {
+                System.out.println("Enter a course ID to add to the education");
+                int courseID = Integer.parseInt(scanner.nextLine());
+                Course course = courseDao.getById(courseID);
 
-            System.out.println("Enter a course ID to add to the education");
-            int courseID = Integer.parseInt(scanner.nextLine());
-            Course course = courseDao.getById(courseID);
+                education.addCourse(course);
+                courseDao.update(course);
 
-            education.addCourse(course);
-            courseDao.update(course);
+                System.out.println("Would you like to add another course? [y/n]");
+                String addAnother = scanner.nextLine();
 
-            System.out.println("Would you like to add another course? [y/n]");
-            String addAnother = scanner.nextLine();
-            if(addAnother.equals("n"))
-                redo = false;
+            }
 
 
             System.out.println("Do you want to add students to this education? [Y/N]");
-            boolean addMoreStudents;
-            do{
-                  addMoreStudents= true;
 
-                    String addStudents = scanner.nextLine();
-                    if(addStudents.equalsIgnoreCase("Y")){
-                        int studentID = Integer.parseInt(scanner.nextLine());
-                        System.out.println("Enter a student ID to add");
+            String addStudents = scanner.nextLine();
+            if (addStudents.equalsIgnoreCase("Y")) {
+                int studentID = Integer.parseInt(scanner.nextLine());
+                System.out.println("Enter a student ID to add");
 
-                        Student student = studentDao.getById(studentID);
-                        education.addStudent(student);
-                        studentDao.update(student);
-                        System.out.println("Add more students? [Y/N]");
-                        String moreStudents = scanner.nextLine();
-                        if(moreStudents.equalsIgnoreCase("n"))
-                            addMoreStudents = false;
-                    }
+                Student student = studentDao.getById(studentID);
+                education.addStudent(student);
+                studentDao.update(student);
 
-            }while(addMoreStudents);
-        }while(redo);
+                System.out.println("Would you like to add a new education?");
+                String another = scanner.nextLine();
+
+            }
+
+            educationDao.insert(education);
+
     }
+
+
 
 
 

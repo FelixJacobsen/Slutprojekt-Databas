@@ -10,7 +10,7 @@ import java.util.List;
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long teacherID;
+    private int teacherID;
 
     @ManyToMany(targetEntity = Course.class)
     private List<Course> courseList;
@@ -39,7 +39,7 @@ public class Teacher {
     }
 
 
-    public long getTeacherID() {
+    public int getTeacherID() {
         return teacherID;
     }
 

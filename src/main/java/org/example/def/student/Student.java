@@ -11,7 +11,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long StudentId;
+    private int StudentId;
 
 
     @ManyToOne
