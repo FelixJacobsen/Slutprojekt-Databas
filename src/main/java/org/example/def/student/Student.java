@@ -25,16 +25,14 @@ public class Student {
 
     }
 
-    public Student(Education education, int age, String fullName) {
-        this.education = education;
-        this.age = age;
-        this.fullName = fullName;
+    public Student(String fullName, int age) {
+       this.fullName = fullName;
+       this.age = age;
     }
 
     public long getStudentId() {
         return StudentId;
     }
-
 
     public Education getEducation() {
         return education;
@@ -58,5 +56,15 @@ public class Student {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "StudentId=" + StudentId +
+                ", education=" + education +
+                ", age=" + age +
+                ", fullName='" + fullName + '\'' +
+                '}';
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long courseID;
+    private int courseID;
 
     @ManyToMany(targetEntity = Teacher.class)
     private List<Teacher> teacherList;
@@ -21,9 +21,7 @@ public class Course {
     private Education education;
 
 
-    public Course(List<Teacher> teacherList, Education education, String courseName, String courseLanguage, Date startDate, Date endDate) {
-        this.teacherList = teacherList;
-        this.education = education;
+    public Course(String courseName, String courseLanguage, Date startDate, Date endDate) {
         this.courseName = courseName;
         this.courseLanguage = courseLanguage;
         this.startDate = startDate;
@@ -41,12 +39,13 @@ public class Course {
 
     }
 
+
     public Education getEducation() {
         return education;
     }
 
 
-    public Long getCourseID() {
+    public int getCourseID() {
         return courseID;
     }
 
@@ -55,9 +54,11 @@ public class Course {
         return teacherList;
     }
 
-    public void setTeacherList(List<Teacher> teacherList) {
-        this.teacherList = teacherList;
+    public void addTeacher(Teacher teacher){
+        teacherList.add(teacher);
+        teacher.getCourseList().add(this);
     }
+
 
     public void setEducation(Education education) {
         this.education = education;
@@ -93,5 +94,18 @@ public class Course {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseID=" + courseID +
+                ", teacherList=" + teacherList +
+                ", education=" + education +
+                ", courseName='" + courseName + '\'' +
+                ", courseLanguage='" + courseLanguage + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
     }
 }

@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface StudentDao extends Dao<Student> {
     List<Student> getByName(String name);
-    List<Student> getByCourse(Course course);
     List<Student> getByAge(int age);
     List<Student> getByEducation(Education education);
 }

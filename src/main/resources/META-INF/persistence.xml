@@ -6,7 +6,7 @@
         <class>org.example.def.teacher.Teacher</class>
         <class>org.example.def.student.Student</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lab4"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/slutprojekt"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="123"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>

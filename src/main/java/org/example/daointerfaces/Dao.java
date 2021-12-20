@@ -8,5 +8,6 @@ public interface Dao<T> {
     void delete(T t);
     void update(T t);
     List<T> getAll();
+    T getById(int id);
 
 }

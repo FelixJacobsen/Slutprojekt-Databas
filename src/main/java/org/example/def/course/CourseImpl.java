@@ -1,21 +1,22 @@
 package org.example.def.course;
 
 import org.example.def.student.Student;
+import org.example.def.teacher.Teacher;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class CourseImpl implements CourseDao {
     EntityManagerFactory emf;
     EntityManager em;
 
-    public CourseImpl(){
+    public CourseImpl() {
         this.emf = Persistence.createEntityManagerFactory("Slutprojekt");
         this.em = emf.createEntityManager();
     }
-
 
 
     @Override
@@ -41,30 +42,32 @@ public class CourseImpl implements CourseDao {
 
     @Override
     public List<Course> getAll() {
-        return em.createQuery("SELECT c FROM Course c",Course.class).getResultList();
+        return em.createQuery("SELECT c FROM Course c", Course.class).getResultList();
     }
 
-
-
+    @Override
+    public Course getById(int id) {
+        return em.find(Course.class,id);
+    }
 
 
     @Override
     public List<Course> getByName(String name) {
-        return null;
+        TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c WHERE fullName =:name ", Course.class);
+        query.setParameter("name", name);
+        return query.getResultList();
     }
 
-    @Override
-    public List<Course> getById(long id) {
-        return null;
-    }
 
     @Override
-    public List<Course> getByStudent(Student student) {
-        return null;
+    public List<Course> getByTeacher(Teacher teacher) {
+        return teacher.getCourseList();
     }
 
+
     @Override
-    public List<Course> getByLength(int length) {
-        return null;
+    public List<Course> orderByLength() {
+        TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c ORDER BY startDate DESC", Course.class);
+        return query.getResultList();
     }
 }

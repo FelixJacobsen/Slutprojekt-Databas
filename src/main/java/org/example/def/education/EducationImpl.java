@@ -39,22 +39,29 @@ public class EducationImpl implements EducationDao{
         em.getTransaction().commit();
     }
 
+
+
     @Override
     public List<Education> getAll() {
         return em.createQuery("SELECT e FROM Education e",Education.class).getResultList();
     }
 
     @Override
+    public Education getById(int id) {
+        return em.find(Education.class,id);
+    }
+
+    @Override
     public List<Education> getEducationName(String educationName) {
-        TypedQuery<Education> queryName = em.createQuery("SELECT n FROM Education n WHERE n.educationName =: fullName",Education.class);
-        queryName.setParameter("educationName",educationName);
+        TypedQuery<Education> queryName = em.createQuery("SELECT n FROM Education n WHERE educationName = :fullName",Education.class);
+        queryName.setParameter("fullName",educationName);
         return queryName.getResultList();
     }
 
     @Override
     public List<Education> getEducationId(long educationID) {
-        TypedQuery<Education> queryID = em.createQuery("SELECT i FROM Education i WHERE i.educationID =: Id",Education.class);
-        queryID.setParameter("educationID",educationID);
+        TypedQuery<Education> queryID = em.createQuery("SELECT i FROM Education i WHERE i.educationID = :Id",Education.class);
+        queryID.setParameter("Id",educationID);
         return queryID.getResultList();
     }
 
