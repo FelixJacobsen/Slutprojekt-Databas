@@ -45,9 +45,8 @@ public class TeacherCommands {
                 }
                 case "1" -> addTeacher();
                 case "2" -> updateTeacher();
-                case "3" -> showSpecificTeachers();
-                case "4" -> showAllTeachers();
-                case "5" -> removeTeacher();
+                case "3" -> showAllTeachers();
+                case "4" -> removeTeacher();
             }
         }
 
@@ -65,7 +64,7 @@ public class TeacherCommands {
         System.out.println("Add the teacher to a course, this is a list of all current courses: ");
         courseDao.getAll().forEach(System.out::println);
 
-       /* System.out.println("Enter the course ID that you want to add the teacher to");
+        System.out.println("Enter the course ID that you want to add the teacher to");
         int courseID = Integer.parseInt(scanner.nextLine());
 
         System.out.println("type e");
@@ -74,7 +73,7 @@ public class TeacherCommands {
             Course course = courseDao.getById(courseID);
             teacher.addCourse(course);
             courseDao.update(course);
-        }*/
+        }
 
 
 
@@ -99,15 +98,15 @@ public class TeacherCommands {
         teacherDao.getAll().forEach(System.out::println);
     }
 
-    private void showSpecificTeachers() {
-    }
+
 
     private void updateTeacher() {
         System.out.println("Enter id of the teacher you want to update");
         int teacherId = Integer.parseInt(scanner.nextLine());
 
         Teacher teacher = teacherDao.getById(teacherId);
-        
+
+
     }
 
 
